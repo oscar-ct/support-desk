@@ -12,6 +12,8 @@ router.post("/", registerUser);
 //     res.send("Register Route");
 // });
 
+const {protect} = require("../middleware/authMiddleware");
+
 router.post("/login", loginUser);
-router.get("/me", getMe);
+router.get("/me", protect, getMe);  /// protected route
 module.exports = router;
