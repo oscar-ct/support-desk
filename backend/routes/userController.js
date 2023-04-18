@@ -70,7 +70,22 @@ const loginUser = asyncHandler( async(req, res) => {
     }
 });
 
+
+
+
+// @route /api/users/me
+// @access true (Private)
+const getMe = asyncHandler( async(req, res) => {
+    const user = {
+        id: req.user._id,
+        email: req.user.email,
+        name: req.user.name
+    }
+    res.status(200).json(user);
+});
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    getMe
 }
