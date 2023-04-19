@@ -8,13 +8,23 @@ const initialState = {
     message: "",
 }
 
+
+export const registerUser = createAsyncThunk("auth/register", async (user, thunkAPI) => {
+    console.log(user);
+});
+
+export const loginUser = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+    console.log(user);
+});
+
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {},
     extraReducers: (builder => {
-
+        // todo
     }),
 });
 
-export default authSlice.reducer
+export default authSlice.reducer;
