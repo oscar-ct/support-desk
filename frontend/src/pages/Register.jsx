@@ -33,25 +33,33 @@ const Register = () => {
     return (
         <>
             <section>
-                <h1>
-                    <FaUser/>Register
+                <h1 className={"fw-bold d-flex justify-content-center"}>
+                    <FaUser/><span className={"ps-1"}>Register</span>
                 </h1>
-                <p>Please create an account</p>
+                <p className={"my-4 fs-3 fw-bold text-black-50"}>
+                    Please create an account
+                </p>
             </section>
             <section>
                 <form onSubmit={registerUser}>
-                    <div>
+                    <div className={"mb-3"}>
+                        <label htmlFor="name" className="form-label">Full Name</label>
                         <input
+                        className={"form-control"}
                         type={"text"}
                         value={name}
                         name={"name"}
                         onChange={onChange}
                         placeholder={"John Doe"}
                         required
+                        id={"name"}
                         />
                     </div>
-                    <div>
+                    <div className={"mb-3"}>
+                        <label htmlFor="email" className="form-label">Email Address</label>
                         <input
+                            id={"email"}
+                            className={"form-control"}
                             type={"email"}
                             value={email}
                             name={"email"}
@@ -60,28 +68,35 @@ const Register = () => {
                             required
                         />
                     </div>
-                    <div>
+                    <div className={"mb-3"}>
+                        <label htmlFor="password" className="form-label">Password</label>
                         <input
+                            className={"form-control"}
                             type={"password"}
                             value={password}
                             name={"password"}
                             onChange={onChange}
                             placeholder={"Enter password"}
                             required
+                            id={"password"}
                         />
                     </div>
-                    <div>
+                    <div className={"mb-3"}>
+                        <label htmlFor="password2" className="form-label">Confirm Password</label>
                         <input
+                            className={"form-control"}
                             type={"password2"}
                             value={password2}
                             name={"password2"}
                             onChange={onChange}
                             placeholder={"Confirm password"}
                             required
+                            id={"password2"}
                         />
                     </div>
                     <div>
                         <button
+                        className={"btn btn-dark mt-4"}
                         type={"submit"}
                         >
                             Create
