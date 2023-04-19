@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {FaSignInAlt} from "react-icons/fa";
 // import {toast} from "react-toastify";
+import {useSelector, useDispatch} from "react-redux";
+import {loginUser} from "../features/auth/authSlice"
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +12,10 @@ const Login = () => {
     });
 
     const { email, password } = formData;
+
+    // GLOBAL STATE TOOLS
+    const dispatch = useDispatch();
+    const {user, isLoading, isSuccess, message} = useSelector(state => state.auth);
 
     const onChange = (e) => {
         setFormData(prevState => {
@@ -19,15 +26,20 @@ const Login = () => {
         });
     }
 
-    const LoginUser = (e) => {
+    const loginUserFormSubmit = (e) => {
         e.preventDefault();
+        const userData = {
+            email,
+            password,
+        }
+        dispatch(loginUser(userData));
 
     }
 
     return (
         <>
             <section>
-                <h1 className={"fw-bold d-flex justify-content-center"}>
+                <h1 className={"fw-bold d-flex justify-content-center align-items-center"}>
                     <FaSignInAlt/><span className={"ps-1"}>Login</span>
                 </h1>
                 <p className={"my-4 fs-3 fw-bold text-black-50"}>
@@ -36,7 +48,8 @@ const Login = () => {
                 </p>
             </section>
             <section>
-                <form onSubmit={LoginUser}>
+                <form onSubmit={loginUserFormSubmit
+                }>
                     <div className={"mb-3"}>
                         <label htmlFor="email" className="form-label">Email address</label>
                         <input
@@ -46,7 +59,7 @@ const Login = () => {
                             value={email}
                             name={"email"}
                             onChange={onChange}
-                            placeholder={"Enter email"}
+                            placeholder={"Enter your email"}
                             required
                         />
                     </div>
@@ -59,7 +72,7 @@ const Login = () => {
                             value={password}
                             name={"password"}
                             onChange={onChange}
-                            placeholder={"Enter password"}
+                            placeholder={"Enter your password"}
                             required
                         />
                     </div>
