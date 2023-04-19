@@ -27,25 +27,34 @@ const Login = () => {
     return (
         <>
             <section>
-                <h1>
-                    <FaSignInAlt/>Login
+                <h1 className={"fw-bold d-flex justify-content-center"}>
+                    <FaSignInAlt/><span className={"ps-1"}>Login</span>
                 </h1>
-                <p>Please login to get support</p>
+                <p className={"my-4 fs-3 fw-bold text-black-50"}>
+
+                Please login to get support
+                </p>
             </section>
             <section>
                 <form onSubmit={LoginUser}>
-                    <div>
+                    <div className={"mb-3"}>
+                        <label htmlFor="email" className="form-label">Email address</label>
                         <input
+                            id={"email"}
+                            className={"form-control"}
                             type={"email"}
                             value={email}
                             name={"email"}
                             onChange={onChange}
-                            placeholder={"email@gmail.com"}
+                            placeholder={"Enter email"}
                             required
                         />
                     </div>
-                    <div>
-                        <input
+                    <div className={"mb-3"}>
+                        <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                            id={"password"}
+                            className={"form-control"}
                             type={"password"}
                             value={password}
                             name={"password"}
@@ -56,6 +65,7 @@ const Login = () => {
                     </div>
                     <div>
                         <button
+                            className={"btn btn-dark mt-4"}
                             type={"submit"}
                         >
                             Login
