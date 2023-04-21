@@ -19,13 +19,20 @@ const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body;
     // validation
     if(!name || !email || !password) {
-        res.status(400);
-        throw new Error("Please include all fields")
+        let err = new Error("Please include all fields");
+        res.status(401).json({
+            message: err.message,
+            stack: err.stack,
+        });
+
     } else {
         const userExists = await User.findOne({email: email});
         if (userExists) {
-            res.status(400);
-            throw new Error("User already exists");
+            let err = new Error("Email already exists");
+            res.status(401).json({
+                message: err.message,
+                stack: err.stack,
+            });
         } else {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
