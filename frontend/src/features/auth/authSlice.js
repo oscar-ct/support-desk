@@ -23,8 +23,15 @@ export const registerUser = createAsyncThunk("auth/register", async (user, thunk
     }
 });
 
+
+
 export const loginUser = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     console.log(user);
+});
+
+
+export const logoutFunc = createAsyncThunk("auth/logout", async () => {
+    await authService.logoutUserFromLocalStorage();
 });
 
 
@@ -32,7 +39,7 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        reset: (state) => {
+        resetFunc: (state) => {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = false;
@@ -55,8 +62,11 @@ export const authSlice = createSlice({
                 state.user = null;
                 state.message = action.payload;
             })
+            .addCase(logoutFunc.fulfilled, (state => {
+                state.user = null
+            }))
     }),
 });
 
-export const { reset } = authSlice.actions;
+export const { resetFunc } = authSlice.actions;
 export default authSlice.reducer;
