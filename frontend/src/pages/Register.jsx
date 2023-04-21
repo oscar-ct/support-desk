@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FaUser} from "react-icons/fa";
 import {toast} from "react-toastify";
 import {useSelector, useDispatch} from "react-redux";
-import {registerUser, reset} from "../features/auth/authSlice"
+import {registerUser, resetFunc} from "../features/auth/authSlice"
 import {useNavigate} from "react-router-dom";
 
 const Register = () => {
@@ -29,7 +29,7 @@ const Register = () => {
         if (isSuccess || user) {
             navigate("/");
         }
-        dispatch(reset());
+        dispatch(resetFunc());
     }, [user, isLoading, isError, isSuccess, navigate, message, dispatch]);
 
     const onChange = (e) => {
