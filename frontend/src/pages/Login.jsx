@@ -53,6 +53,7 @@ const Login = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="email" className="form-label">Email address</label>
                         <input
+                            autoComplete={"email"}
                             id={"email"}
                             className={"form-control"}
                             type={"email"}
@@ -66,6 +67,7 @@ const Login = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="password" className="form-label">Password</label>
                             <input
+                                autoComplete={"password"}
                             id={"password"}
                             className={"form-control"}
                             type={"password"}
