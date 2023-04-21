@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {FaUser} from "react-icons/fa";
 import {toast} from "react-toastify";
 import {useSelector, useDispatch} from "react-redux";
-import {registerUser} from "../features/auth/authSlice"
+import {registerUser, reset} from "../features/auth/authSlice"
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -16,8 +17,20 @@ const Register = () => {
 
     // GLOBAL STATE TOOLS
     const dispatch = useDispatch();
-    const {user, isLoading, isSuccess, message} = useSelector(state => state.auth);
+    const {user, isLoading, isSuccess, message, isError} = useSelector(state => state.auth);
 
+
+    const navigate = useNavigate();
+
+    useEffect(function () {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate("/");
+        }
+        dispatch(reset);
+    }, []);
 
     const onChange = (e) => {
         setFormData(prevState => {
@@ -57,6 +70,7 @@ const Register = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="name" className="form-label">Full Name</label>
                         <input
+                        autoComplete={"name"}
                         className={"form-control"}
                         type={"text"}
                         value={name}
@@ -70,6 +84,7 @@ const Register = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="email" className="form-label">Email Address</label>
                         <input
+                            autoComplete={"email"}
                             id={"email"}
                             className={"form-control"}
                             type={"email"}
@@ -83,6 +98,7 @@ const Register = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
+                            autoComplete={"password"}
                             className={"form-control"}
                             type={"password"}
                             value={password}
@@ -96,6 +112,7 @@ const Register = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="password2" className="form-label">Confirm Password</label>
                         <input
+                            autoComplete={"off"}
                             className={"form-control"}
                             type={"password2"}
                             value={password2}
