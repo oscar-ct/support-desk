@@ -27,9 +27,9 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(6000, 'localhost', () => {
+app.listen(5000, 'localhost', () => {
     console.log('working');
-    console.log(`Server started on port ${PORT}`);
+    console.log(`Server started on port 5000`);
 });
 
 
