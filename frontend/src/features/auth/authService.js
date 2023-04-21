@@ -10,6 +10,10 @@ const commitRegister = async (userData) => {
     return response.data;
 }
 
+const logoutUserFromLocalStorage = () => {
+    localStorage.removeItem("user");
+}
+
 
 // const commitRegister = async (userData) => {
 //     const options = {
@@ -29,7 +33,7 @@ const commitRegister = async (userData) => {
 // }
 
 const authService = {
-    commitRegister
+    commitRegister, logoutUserFromLocalStorage
 }
 
 export default authService;
