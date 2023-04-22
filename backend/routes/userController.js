@@ -18,13 +18,12 @@ const generateToken = (id) => {
 const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body;
     // validation
-    if(!name || !email || !password) {
+    if (!name || !email || !password) {
         let err = new Error("Please include all fields");
         res.status(401).json({
             message: err.message,
             stack: err.stack,
         });
-
     } else {
         const userExists = await User.findOne({email: email});
         if (userExists) {
@@ -49,8 +48,11 @@ const registerUser = asyncHandler(async (req, res) => {
                     token: generateToken(user._id),
                 });
             } else {
-                res.status(400);
-                throw new Error("Invalid user data")
+                let err = new Error("Invalid user data!!");
+                res.status(401).json({
+                    message: err.message,
+                    stack: err.stack,
+                });
             }
         }
     }
@@ -72,8 +74,11 @@ const loginUser = asyncHandler( async(req, res) => {
             token: generateToken(user._id),
         });
     } else {
-        res.status(401);
-        throw new Error("Invalid email/password");
+        let err = new Error("Invalid email or password");
+        res.status(401).json({
+            message: err.message,
+            stack: err.stack,
+        });
     }
 });
 
