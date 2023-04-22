@@ -25,8 +25,8 @@ const Header = () => {
                 <ul>
                     {user ? (
                         <li>
-                            <button className={"btn"} type={"button"} onClick={onClickLogout}>
-                                <FaSignOutAlt/>Logout
+                            <button className={"btn btn-dark"} type={"button"} onClick={onClickLogout}>
+                                <FaSignOutAlt/> Logout
                             </button>
                         </li>
                     ) : (
@@ -43,9 +43,7 @@ const Header = () => {
                             </li>
                         </>
                     )}
-
                 </ul>
-
         </header>
     );
 };
