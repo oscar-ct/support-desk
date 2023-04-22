@@ -10,6 +10,14 @@ const commitRegister = async (userData) => {
     return response.data;
 }
 
+const commitLogin = async (userData) => {
+    const response = await axios.post(API_URL + "/login", userData);
+    if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+}
+
 const logoutUserFromLocalStorage = () => {
     localStorage.removeItem("user");
 }
@@ -33,7 +41,7 @@ const logoutUserFromLocalStorage = () => {
 // }
 
 const authService = {
-    commitRegister, logoutUserFromLocalStorage
+    commitRegister, logoutUserFromLocalStorage, commitLogin
 }
 
 export default authService;
