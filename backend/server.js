@@ -18,7 +18,13 @@ const app = express();
 app.use(errorHandler);
 app.use(express.json()); // body parser
 app.use(express.urlencoded({extended: false}));
+
+/// ROUTE: http://localhost:/XXXX/api/users
 app.use("/api/users", require("./routes/userRoutes"));
+
+
+/// ROUTE: http://localhost:/XXXX/api/tickets
+app.use("/api/tickets", require("./routes/ticketRoutes"));
 
 
 
