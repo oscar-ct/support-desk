@@ -5,26 +5,55 @@ const User = require("../models/userModel");
 const Ticket = require("../models/ticketModel");
 
 
+let userErr = new Error("Could not find user");
+
 
 // @route /api/tickets
 // @access true (Private)
 // GET
 const getTickets = asyncHandler( async(req, res) => {
-    const ticket = {
-        test: "getTickets"
+    const user = await User.findById(req.user.id);
+    if (user) {
+        const tickets = await Ticket.find({user: req.user.id});
+        res.status(201).json(tickets);
+    } else if (!user || tickets.length === 0){
+        res.status(401).json({
+            message: userErr.message,
+            stack: userErr.stack,
+        });
     }
-    res.status(200).json(ticket);
 });
+
 
 
 // @route /api/tickets
 // @access true (Private)
 // POST
 const createTicket = asyncHandler( async(req, res) => {
-    const ticket = {
-        test: "createTicket"
+    const {product, description} = req.body;
+    const user = await User.findById(req.user.id);
+    if (!product || !description) {
+        let err = new Error("Please add a product and description");
+        res.status(401).json({
+            message: err.message,
+            stack: err.stack,
+        });
     }
-    res.status(200).json(ticket);
+    if (!user) {
+        res.status(401).json({
+            message: userErr.message,
+            stack: userErr.stack,
+        });
+    }
+    if (product && description && user) {
+        const ticket = await Ticket.create({
+            product,
+            description,
+            user: req.user.id,
+            status: "new",
+        });
+        res.status(201).json(ticket);
+    }
 });
 
 
