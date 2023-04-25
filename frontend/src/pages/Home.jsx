@@ -13,7 +13,7 @@ const Home = () => {
 
 
             <div className={"d-flex flex-column"}>
-                <Link className={"btn btn-light mt-3"}>
+                <Link to={"/create-ticket"} className={"btn btn-light mt-3"}>
                     <FaQuestionCircle/> Create New Ticket
                 </Link>
                 <Link className={"btn btn-dark mt-4"}>
