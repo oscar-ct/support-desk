@@ -13,7 +13,7 @@ const CreateTicket = () => {
         return state.auth;
     });
     const {isLoading, isError, isSuccess, message} = useSelector((state) => {
-        return state.ticket;
+        return state.tickets;
     })
     const [name] = useState(user.name);
     const [email] = useState(user.email);
