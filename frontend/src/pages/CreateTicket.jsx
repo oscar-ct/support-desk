@@ -1,31 +1,60 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {createTicket, resetFunc} from "../features/tickets/ticketSlice";
+import {toast} from "react-toastify";
+import BackButton from "../components/BackButton";
 
 
 const CreateTicket = () => {
 
     const {user} = useSelector((state) => {
-        return state.auth
+        return state.auth;
     });
-
-    const [disabled, setDisabled] = useState(false);
+    const {isLoading, isError, isSuccess, message} = useSelector((state) => {
+        return state.ticket;
+    })
     const [name] = useState(user.name);
     const [email] = useState(user.email);
     const [product, setProduct] = useState("");
     const [description, setDescription] = useState("");
 
-    const submitTicket = () => {
-      
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(function () {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess) {
+            dispatch(resetFunc());
+            navigate("/");
+        }
+        dispatch(resetFunc());
+    }, [isSuccess, isError, message, navigate, dispatch,])
+
+    const submitTicketForm = (e) => {
+        e.preventDefault();
+        dispatch(createTicket({
+            product, description
+        }));
+    };
+
+    if (isLoading) {
+        return <h1>Loading...</h1>
     }
 
     return (
         <>
+            <div className={"w-100 d-flex mb-3"}>
+                <BackButton url={"/"}/>
+            </div>
             <section className={"mx-auto"}>
                 <h1 className={"fw-bold"}>Create New Ticket</h1>
                 <p className={"my-4 fs-3 fw-bold text-black-50"}>Please fill out the form below</p>
             </section>
-            <section>
+            <section className={"mx-md-5 px-lg-5"}>
                     <div className={"mb-3"}>
                         <label htmlFor="name" className="form-label">Customer Name</label>
                         <input
@@ -52,7 +81,7 @@ const CreateTicket = () => {
                             disabled
                         />
                     </div>
-                <form onSubmit={submitTicket}>
+                <form onSubmit={submitTicketForm}>
                     <div className={"mb-3"}>
                         <label htmlFor="product" className="form-label">Product Type</label>
                         <select
@@ -63,7 +92,6 @@ const CreateTicket = () => {
                             name={"product"}
                             onChange={(e) => {
                                 setProduct(e.target.value);
-                                setDisabled(true);
                             }}
                             required
                         >
