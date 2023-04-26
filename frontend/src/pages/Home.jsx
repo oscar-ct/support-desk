@@ -16,7 +16,7 @@ const Home = () => {
                 <Link to={"/create-ticket"} className={"btn btn-light mt-3"}>
                     <FaQuestionCircle/> Create New Ticket
                 </Link>
-                <Link className={"btn btn-dark mt-4"}>
+                <Link to={"/tickets"} className={"btn btn-dark mt-4"}>
                     <FaTicketAlt/> View My Tickets
                 </Link>
             </div>
