@@ -9,9 +9,13 @@ body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
 }
+a {
+  text-decoration: none;
+  color: #000;
+}
 .container {
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
@@ -46,4 +50,17 @@ body {
 }
 .header ul li a svg {
   margin-right: 5px;
+}
+.text {
+  color: white;
+  font-size: 14px;
+  min-width: 5em;
+}
+
+.custom-link {
+  font-size: 14px;
+}
+.custom-link:hover {
+  background-color: rgba(44, 44, 44, 0.87) !important;
+  color: white;
 }
