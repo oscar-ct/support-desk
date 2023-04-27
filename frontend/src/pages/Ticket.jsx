@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {getUserTicket, resetFunc} from "../features/tickets/ticketSlice";
+import {getUserTicket, resetFunc, updateUserTicket} from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
 import {toast} from "react-toastify";
 
@@ -13,6 +13,7 @@ const Ticket = () => {
 
     const dispatch = useDispatch();
     const {ticketId} = useParams();
+    const navigate = useNavigate();
 
 
     useEffect(function () {
@@ -35,6 +36,12 @@ const Ticket = () => {
         }
     }
 
+    const closeTicket = () => {
+        dispatch(updateUserTicket(ticketId));
+        toast.success("Ticket has been closed");
+        navigate("/tickets");
+    }
+
     if (isLoading) {
         return <h1>Loading...</h1>
     }
@@ -54,8 +61,11 @@ const Ticket = () => {
                         </div>
                     </div>
                 </div>
+                <div className={"mb-3 d-flex align-items-center justify-content-between"}>
+                    <div className={"fw-bold fs-5"}>Date Submitted: {new Date(ticket.createdAt).toLocaleString("en-US")}</div>
+                </div>
                 <div className={"d-flex align-items-center justify-content-between"}>
-                    <div className={"fw-bold fs-5"}>Date Submitted:  {new Date(ticket.createdAt).toLocaleString("en-US")}</div>
+                    <div className={"fw-bold fs-5"}>Product: {ticket.product}</div>
                 </div>
                 <div className={"border-bottom mb-3 mt-2"}/>
                 <div className={"p-3 w-100 bg-light d-flex flex-column align-items-start"}>
@@ -65,6 +75,16 @@ const Ticket = () => {
                     <div>
                         {ticket.description}
                     </div>
+                </div>
+                <div className={"mt-3"}>
+                {
+                    ticket.status !== "closed" && (
+                        <button onClick={closeTicket} className={"btn btn-danger"}>
+                            Close Ticket
+                        </button>
+                    )
+
+                }
                 </div>
             </section>
         </>
