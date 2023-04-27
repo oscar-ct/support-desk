@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {resetFunc, getUserTickets} from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
+import TicketItem from "../components/TicketItem";
 
 const Tickets = () => {
 
@@ -30,8 +31,34 @@ const Tickets = () => {
 
     return (
         <>
-            <BackButton url={"/"}/>
-            Tickets
+            <div className={"d-flex mb-3"}>
+                <BackButton url={"/"}/>
+            </div>
+            <section>
+                <h1 className={"fw-bold"}>Tickets</h1>
+            </section>
+
+            {tickets.length !== 0 ?
+                <section>
+                    <table className="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Product</th>
+                            <th>Status</th>
+                            <th/>
+                        </tr>
+                        </thead>
+                        {tickets.map(function(ticket) {
+                            return <TicketItem key={ticket._id} ticket={ticket}/>
+                        })}
+                    </table>
+                </section>
+                :
+                <div className={"mt-3"}>
+                    <h3>No Tickets Found</h3>
+                </div>
+            }
         </>
     );
 };
