@@ -39,8 +39,6 @@ const getTicket = asyncHandler( async(req, res) => {
                 message: err.message,
                 stack: err.stack,
             });
-        } else {
-            res.status(201).json(ticket);
         }
         if (!ticket) {
             let err = new Error("Could not find ticket");
@@ -49,7 +47,7 @@ const getTicket = asyncHandler( async(req, res) => {
                 stack: err.stack,
             });
         }
-        res.status(201).json(tickets);
+        res.status(201).json(ticket);
     } else if (!user){
         res.status(401).json({
             message: userErr.message,
@@ -85,7 +83,7 @@ const deleteTicket = asyncHandler( async(req, res) => {
                 stack: err.stack,
             });
         }
-        res.status(201).json(tickets);
+        res.status(201).json(ticket);
     } else if (!user){
         res.status(401).json({
             message: userErr.message,
@@ -122,7 +120,7 @@ const updateTicket = asyncHandler( async(req, res) => {
                 stack: err.stack,
             });
         }
-        res.status(201).json(tickets);
+        res.status(201).json(ticket);
     } else if (!user){
         res.status(401).json({
             message: userErr.message,
