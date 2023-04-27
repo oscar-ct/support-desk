@@ -1,11 +1,15 @@
 
 const express = require("express");
 const router = express.Router();
-const {getTickets, createTicket, getTicket} = require("../routes/ticketController");
-
+const {getTickets, createTicket, getTicket, deleteTicket, updateTicket} = require("../routes/ticketController");
 
 const {protect} = require("../middleware/authMiddleware");
-const {deleteTicket, updateTicket} = require("./ticketController");
+
+
+
+// this will be merging params from ticket id with notes
+const noteRouter = require("./notesRoutes");
+router.use("/:ticketId/notes", noteRouter);
 
 
 
