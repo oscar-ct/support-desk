@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, getMe } = require("../routes/userController")
+const { registerUser, loginUser, getMe } = require("../controllers/userController")
 
 
 // This is a cleaner way of setting up routes
