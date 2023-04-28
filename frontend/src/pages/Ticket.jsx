@@ -4,11 +4,44 @@ import {useSelector, useDispatch} from "react-redux";
 import {getUserTicket, resetFunc, updateUserTicket} from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
 import {toast} from "react-toastify";
-import {getTicketNotes, resetFunc as notesResetFunc} from "../features/notes/noteSlice";
+import {createTicketNote, getTicketNotes, resetFunc as notesResetFunc} from "../features/notes/noteSlice";
 import NoteItem from "../components/NoteItem";
+import Modal from "react-modal";
+import {useState} from "react";
+import {FaPlus} from "react-icons/fa";
+
+
+const customModalStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(44,44,44,0.64)'
+    },
+    content: {
+        maxWidth: "600px",
+        position: 'absolute',
+        margin: "auto",
+        top: '25%',
+        bottom: '42%',
+        border: '1px solid #ccc',
+        background: '#fff',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        borderRadius: '4px',
+        outline: 'none',
+        padding: '20px'
+    },
+}
+
+Modal.setAppElement("#root");
 
 const Ticket = () => {
 
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [noteText, setNoteText] = useState("");
     const {ticket, isLoading, isSuccess, isError, message} = useSelector((state) => {
         return state.tickets;
     });
@@ -43,11 +76,23 @@ const Ticket = () => {
             return "bg-dark"
         }
     }
+    const openModal = () => {
+        setModalIsOpen(true);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
 
     const closeTicket = () => {
         dispatch(updateUserTicket(ticketId));
         toast.success("Ticket has been closed");
         navigate("/tickets");
+    }
+
+    const onNoteSubmitForm = (e) => {
+        e.preventDefault();
+        dispatch(createTicketNote({noteText, ticketId}))
+        closeModal();
     }
 
     if (isLoading || notesIsLoading) {
@@ -94,22 +139,60 @@ const Ticket = () => {
                     <div className={"fw-bold fs-5 mb-2"}>
                         Notes
                     </div>
+                    {
+                        ticket.status !== "closed" && (
+                            <button onClick={openModal} className={"btn"}><FaPlus/> Add Note</button>
+                        )
+                    }
 
-                        {
-                            notes.map(function (note) {
-                                return <NoteItem key={note._id} note={note}/>
-                            })
-                        }
+                    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customModalStyles} contentLabel={"Add Note"}>
+                        <div className={"pb-4 w-100 d-flex justify-content-between border-bottom"}>
+                            <div className={"fs-2"}>Add Note</div>
+                            <button className={"btn btn-close"} onClick={closeModal}/>
+                        </div>
+
+                        <form onSubmit={onNoteSubmitForm}>
+                            <div className={"mt-4 p-2"}>
+                                <textarea
+                                    rows={5}
+                                    className={"form-control bg-light"}
+                                    name={"noteText"}
+                                    id={"noteText"}
+                                    placeholder={"Type note here"}
+                                    onChange={(e) => setNoteText(e.target.value)}
+                                />
+                            </div>
+                            <div className={"border-top d-flex justify-content-end mt-4"}>
+                                <div className={"mt-4"}>
+                                    <button onClick={closeModal} className={"btn btn-secondary"}>
+                                        Close
+                                    </button>
+                                    <button className={"ms-2 btn btn-primary"}>
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </Modal>
+
+                    {
+                        notes.map(function (note) {
+                            return <NoteItem key={note._id} note={note}/>
+                        })
+                    }
 
                 </div>
             </section>
 
-            <div className={"mt-4"}>
+            <div className={"mt-5"}>
                 {
                     ticket.status !== "closed" && (
-                        <button onClick={closeTicket} className={"btn btn-danger w-50"}>
-                            Close Ticket
-                        </button>
+                        <div className={"d-flex justify-content-end"}>
+                            <button onClick={closeTicket} className={"btn btn-danger"}>
+                                Close Ticket
+                            </button>
+                        </div>
                     )
 
                 }
