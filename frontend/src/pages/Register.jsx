@@ -17,7 +17,7 @@ const Register = () => {
 
     // GLOBAL STATE TOOLS
     const dispatch = useDispatch();
-    const {user, isLoading, isSuccess, message, isError} = useSelector(state => state.auth);
+    const { user, isLoading, isSuccess, message, isError } = useSelector(state => state.auth);
 
 
     const navigate = useNavigate();
@@ -32,6 +32,7 @@ const Register = () => {
         dispatch(resetFunc());
     }, [user, isLoading, isError, isSuccess, navigate, message, dispatch]);
 
+
     const onChange = (e) => {
         setFormData(prevState => {
             return {
@@ -40,6 +41,7 @@ const Register = () => {
             }
         });
     }
+
 
     const registerUserFormSubmit = (e) => {
         e.preventDefault();
