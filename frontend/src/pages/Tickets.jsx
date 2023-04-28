@@ -55,7 +55,7 @@ const Tickets = () => {
                     </table>
                 </section>
                 :
-                <div className={"mt-3"}>
+                <div className={"mt-4"}>
                     <h3>No Tickets Found</h3>
                 </div>
             }
