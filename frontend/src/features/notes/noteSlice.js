@@ -14,7 +14,7 @@ const initialState = {
 export const getTicketNotes = createAsyncThunk("notes/getAll", async (ticketId, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await noteService.commitGetTicketNotes(token);
+        return await noteService.commitGetTicketNotes(ticketId, token);
     } catch (e) {
         const message = e.response.data.message.toString();
         return thunkAPI.rejectWithValue(message);
