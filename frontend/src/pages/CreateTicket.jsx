@@ -9,14 +9,14 @@ import BackButton from "../components/BackButton";
 
 const CreateTicket = () => {
 
-    const {user} = useSelector((state) => {
-        return state.auth;
-    });
+    // const {user} = useSelector((state) => {
+    //     return state.auth;
+    // });
     const {isLoading, isError, isSuccess, message} = useSelector((state) => {
         return state.tickets;
     })
-    const [name] = useState(user.name);
-    const [email] = useState(user.email);
+    // const [name] = useState(user.name);
+    // const [email] = useState(user.email);
     const [product, setProduct] = useState("");
     const [description, setDescription] = useState("");
 
@@ -55,32 +55,32 @@ const CreateTicket = () => {
                 <p className={"my-4 fs-3 fw-bold text-black-50"}>Please fill out the form below</p>
             </section>
             <section className={"mx-md-5 px-lg-5"}>
-                    <div className={"mb-3"}>
-                        <label htmlFor="name" className="form-label">Customer Name</label>
-                        <input
-                            autoComplete={"off"}
-                            id={"name"}
-                            className={"form-control"}
-                            type={"text"}
-                            value={name}
-                            name={"email"}
-                            required
-                            disabled
-                        />
-                    </div>
-                    <div className={"mb-3"}>
-                        <label htmlFor="email" className="form-label">Customer Email</label>
-                        <input
-                            autoComplete={"off"}
-                            id={"email"}
-                            className={"form-control"}
-                            type={"text"}
-                            value={email}
-                            name={"email"}
-                            required
-                            disabled
-                        />
-                    </div>
+                    {/*<div className={"mb-3"}>*/}
+                    {/*    <label htmlFor="name" className="form-label">Customer Name</label>*/}
+                    {/*    <input*/}
+                    {/*        autoComplete={"off"}*/}
+                    {/*        id={"name"}*/}
+                    {/*        className={"form-control"}*/}
+                    {/*        type={"text"}*/}
+                    {/*        value={name}*/}
+                    {/*        name={"email"}*/}
+                    {/*        required*/}
+                    {/*        disabled*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                    {/*<div className={"mb-3"}>*/}
+                    {/*    <label htmlFor="email" className="form-label">Customer Email</label>*/}
+                    {/*    <input*/}
+                    {/*        autoComplete={"off"}*/}
+                    {/*        id={"email"}*/}
+                    {/*        className={"form-control"}*/}
+                    {/*        type={"text"}*/}
+                    {/*        value={email}*/}
+                    {/*        name={"email"}*/}
+                    {/*        required*/}
+                    {/*        disabled*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                 <form onSubmit={submitTicketForm}>
                     <div className={"mb-3"}>
                         <label htmlFor="product" className="form-label">Product Type</label>
@@ -118,6 +118,7 @@ const CreateTicket = () => {
                     <div className={"mb-3"}>
                         <label htmlFor="description" className="form-label">Description of issue</label>
                         <textarea
+                            rows={7}
                             autoComplete={"off"}
                             id={"description"}
                             className={"form-control"}
