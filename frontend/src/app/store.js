@@ -9,7 +9,7 @@ export const store = configureStore({
     // counter: counterReducer,
     auth: authReducer,
     tickets: ticketReducer,
-    note: noteReducer,
+    notes: noteReducer,
 
   },
 });
