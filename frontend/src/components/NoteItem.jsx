@@ -7,9 +7,15 @@ const NoteItem = ({note}) => {
         return state.auth;
     });
 
+    const noteStyle = (isStaff) => {
+        if (isStaff) {
+            return "dark-gray text-light"
+        }
+    };
+
     return (
-        <div className={"my-2 p-3 w-100 border d-flex flex-column align-items-start"}>
-            <div className={"w-100 d-flex flex-row justify-content-between"}>
+        <div className={`${noteStyle(note.isStaff)} my-2 p-3 w-100 border d-flex flex-column align-items-start`}>
+            <div className={`w-100 d-flex flex-row justify-content-between`}>
                 <div className={"fw-bold"}>
                     Note from {note.isStaff ? <span>Staff</span> : <span>{user.name}</span>}
                 </div>
