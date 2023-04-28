@@ -64,3 +64,6 @@ a {
   background-color: rgba(44, 44, 44, 0.87) !important;
   color: white;
 }
+.dark-gray {
+   background-color: #333333;
+}
