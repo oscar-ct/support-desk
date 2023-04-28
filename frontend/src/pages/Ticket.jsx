@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {getUserTicket, resetFunc, updateUserTicket} from "../features/tickets/ticketSlice";
+import {getUserTicket, updateUserTicket} from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
 import {toast} from "react-toastify";
-import {createTicketNote, getTicketNotes, resetFunc as notesResetFunc} from "../features/notes/noteSlice";
+import {createTicketNote, getTicketNotes,} from "../features/notes/noteSlice";
 import NoteItem from "../components/NoteItem";
 import Modal from "react-modal";
 import {useState} from "react";
@@ -42,11 +42,11 @@ const Ticket = () => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [noteText, setNoteText] = useState("");
-    const {ticket, isLoading, isSuccess, isError, message} = useSelector((state) => {
+    const {ticket, isLoading, isError, message} = useSelector((state) => {
         return state.tickets;
     });
 
-    const {notes, isLoading: notesIsLoading, isSuccess: notesIsSuccess, isError: notesIsError, message: notesMessage} = useSelector((state) => {
+    const {notes, isLoading: notesIsLoading, isError: notesIsError, message: notesMessage} = useSelector((state) => {
         return state.notes;
     })
 
@@ -59,13 +59,16 @@ const Ticket = () => {
         if (isError) {
             toast.error(message);
         }
+        if (notesIsError) {
+            toast.error(notesMessage);
+        }
 
         dispatch(getUserTicket(ticketId));
         dispatch(getTicketNotes(ticketId));
         // resetFunc();
         // notesResetFunc();
 
-    }, [isSuccess, isError, dispatch, ticketId, message]);
+    }, [isError, notesIsError, dispatch, ticketId, message, notesMessage]);
 
     const ticketStatusColor = (status) => {
         if (status === "new") {

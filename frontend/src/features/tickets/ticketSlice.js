@@ -99,6 +99,8 @@ export const ticketSlice = createSlice({
                 state.tickets.map(function(ticket) {
                     if (ticket._id === action.payload._id) {
                         return ticket.status = "closed";
+                    } else {
+                        return ticket;
                     }
                 });
             })
