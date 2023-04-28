@@ -18,23 +18,25 @@ const TicketItem = ({ ticket }) => {
 
         <tbody className={"bg-light"}>
             <tr>
-                <td className={"py-3"}>
+                <td className={"py-5"}>
                     {new Date(ticket.createdAt).toLocaleString("en-US")}
                 </td>
-                <td className={"py-3"}>
+                <td className={"py-5"}>
                     {ticket.product}
                 </td>
-                <td className={"py-3"}>
+                <td className={"py-5"}>
                     <div className="d-flex align-items-center justify-content-center">
-                        <div className={`${ticketStatusColor(ticket.status)} rounded-pill text w-100`}>
+                        <div className={`${ticketStatusColor(ticket.status)} rounded-pill text py-1 w-100`}>
                             {ticket.status}
                         </div>
                     </div>
                 </td>
-                <td className={"py-3"}>
-                    <Link className={"custom-link border border-secondary bg-white py-1 px-2 px-md-5 rounded"} to={`/ticket/${ticket._id}`}>
-                        View
-                    </Link>
+                <td className={"py-5"}>
+                    <div className={"d-flex justify-content-center"}>
+                        <Link className={"custom-link border border-secondary bg-white py-1 px-2 px-md-5 rounded"} to={`/ticket/${ticket._id}`}>
+                            View
+                        </Link>
+                    </div>
                 </td>
             </tr>
         </tbody>
