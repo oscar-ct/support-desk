@@ -44,10 +44,20 @@ export const getUserTicket = createAsyncThunk("ticket/get", async (ticketId, thu
     }
 });
 
-export const updateUserTicket = createAsyncThunk("ticket/update", async (ticketId, thunkAPI) => {
+export const updateUserTicket = createAsyncThunk("ticket/update", async ({ticketData, ticketId}, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        return await ticketService.commitUpdateTicket(ticketId, token);
+        return await ticketService.commitUpdateTicket(ticketData, ticketId, token);
+    } catch (e) {
+        const message = e.response.data.message.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+export const closeUserTicket = createAsyncThunk("ticket/close", async (ticketId, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await ticketService.commitCloseTicket(ticketId, token);
     } catch (e) {
         const message = e.response.data.message.toString();
         return thunkAPI.rejectWithValue(message);
@@ -78,6 +88,9 @@ export const ticketSlice = createSlice({
             .addCase(getUserTicket.pending, (state) => {
                 state.isLoading = true;
             })
+            .addCase(updateUserTicket.pending, (state) => {
+                state.isLoading = true;
+            })
 /////  FULFILLED  ////////////////////////
             .addCase(createTicket.fulfilled, (state) => {
                 state.isLoading = false;
@@ -93,14 +106,24 @@ export const ticketSlice = createSlice({
                 state.isSuccess = true;
                 state.ticket = action.payload;
             })
+            .addCase(closeUserTicket.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.tickets.forEach(function(ticket) {
+                    if (ticket._id === action.payload._id) {
+                        ticket.status = "closed";
+                    }
+                });
+            })
             .addCase(updateUserTicket.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.tickets.map(function(ticket) {
+                state.ticket.product = action.payload.product;
+                state.ticket.description = action.payload.description;
+                state.tickets.forEach(function(ticket) {
                     if (ticket._id === action.payload._id) {
-                        return ticket.status = "closed";
-                    } else {
-                        return ticket;
+                        ticket.description = action.payload.description;
+                        ticket.product = action.payload.product;
                     }
                 });
             })
@@ -116,6 +139,11 @@ export const ticketSlice = createSlice({
                 state.message = action.payload;
             })
             .addCase(getUserTicket.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(updateUserTicket.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
