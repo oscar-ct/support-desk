@@ -1,9 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {FaQuestionCircle, FaTicketAlt} from "react-icons/fa";
+import {useSelector} from "react-redux";
 
 
 const Home = () => {
+
+    const {user} = useSelector((state) => {
+        return state.auth;
+    });
+
     return (
         <>
             <section className={"mx-auto"}>
