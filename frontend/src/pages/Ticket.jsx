@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {getUserTicket, updateUserTicket} from "../features/tickets/ticketSlice";
+import {getUserTicket, closeUserTicket, resetFunc} from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
 import {toast} from "react-toastify";
 import {createTicketNote, getTicketNotes,} from "../features/notes/noteSlice";
@@ -65,7 +65,7 @@ const Ticket = () => {
 
         dispatch(getUserTicket(ticketId));
         dispatch(getTicketNotes(ticketId));
-        // resetFunc();
+        dispatch(resetFunc());
         // notesResetFunc();
 
     }, [isError, notesIsError, dispatch, ticketId, message, notesMessage]);
@@ -87,7 +87,7 @@ const Ticket = () => {
     }
 
     const closeTicket = () => {
-        dispatch(updateUserTicket(ticketId));
+        dispatch(closeUserTicket(ticketId));
         toast.success("Ticket has been closed");
         navigate("/tickets");
     }
@@ -191,7 +191,10 @@ const Ticket = () => {
             <div className={"mt-5"}>
                 {
                     ticket.status !== "closed" && (
-                        <div className={"d-flex justify-content-end"}>
+                        <div className={"d-flex justify-content-between"}>
+                            <button className={"btn btn-secondary"} onClick={() => navigate("/edit-ticket/" + ticketId)}>
+                                Edit Ticket
+                            </button>
                             <button onClick={closeTicket} className={"btn btn-danger"}>
                                 Close Ticket
                             </button>
