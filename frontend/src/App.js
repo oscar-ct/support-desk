@@ -10,6 +10,7 @@ import CreateTicket from "./pages/CreateTicket";
 import PrivateRoute from "./components/PrivateRoute";
 import Tickets from "./pages/Tickets";
 import Ticket from "./pages/Ticket";
+import EditTicket from "./pages/EditTicket";
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
                    <Route path={"/register"} element={<Register />}/>
                    <Route path={"/create-ticket"} element={<PrivateRoute/>}>
                        <Route path={"/create-ticket"} element={<CreateTicket/>}/>
+                   </Route>
+                   <Route path={"/edit-ticket/:ticketId"} element={<PrivateRoute/>}>
+                       <Route path={"/edit-ticket/:ticketId"} element={<EditTicket/>}/>
                    </Route>
                    <Route path={"/tickets"} element={<PrivateRoute/>}>
                        <Route path={"/tickets"} element={<Tickets/>}/>
