@@ -33,7 +33,17 @@ const commitGetTicket = async (ticketId, token) => {
     return response.data;
 }
 
-const commitUpdateTicket = async (ticketId, token) => {
+const commitUpdateTicket = async (ticketData, ticketId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.put(API_URL + ticketId, ticketData, config);
+    return response.data;
+}
+
+const commitCloseTicket = async (ticketId, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -47,7 +57,8 @@ const ticketService = {
     commitTicketCreation,
     commitGetTickets,
     commitGetTicket,
-    commitUpdateTicket
+    commitUpdateTicket,
+    commitCloseTicket
 }
 
 export default ticketService;
