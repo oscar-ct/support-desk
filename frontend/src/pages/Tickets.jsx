@@ -50,8 +50,8 @@ const Tickets = () => {
                         </tr>
                         </thead>
                         {tickets.map(function(ticket) {
-                            return <TicketItem key={ticket._id} ticket={ticket}/>
-                        })}
+                            return <TicketItem key={ticket._id} ticket={ticket} />
+                        }).reverse()}
                     </table>
                 </section>
                 :
