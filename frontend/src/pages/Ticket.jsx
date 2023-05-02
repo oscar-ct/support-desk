@@ -112,7 +112,7 @@ const Ticket = () => {
                 <div className={"d-flex align-items-center justify-content-between mb-3"}>
                     <div className={"fw-bold fs-3"}>Ticket ID: {ticket._id}</div>
                     <div className="d-flex align-items-center justify-content-center">
-                        <div className={`${ticketStatusColor(ticket.status)} rounded-pill text w-100`}>
+                        <div className={`${ticketStatusColor(ticket.status)} py-1 rounded-pill text-lg w-100`}>
                             {ticket.status}
                         </div>
                     </div>
@@ -180,9 +180,15 @@ const Ticket = () => {
                     </Modal>
 
                     {
-                        notes.map(function (note) {
-                            return <NoteItem key={note._id} note={note}/>
-                        })
+                        notes.length !== 0 &&
+                            notes.map(function (note) {
+                                return <NoteItem key={note._id} note={note} noteExists={notes.length !== 0}/>
+                            })
+                    }
+                    {
+                        notes.length === 0 && (
+                            <NoteItem noteExists={notes.length !== 0}/>
+                        )
                     }
 
                 </div>
