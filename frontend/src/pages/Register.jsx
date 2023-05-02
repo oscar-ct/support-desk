@@ -67,8 +67,8 @@ const Register = () => {
                     Please create an account
                 </p>
             </section>
-            <section>
-                <form onSubmit={registerUserFormSubmit}>
+            <section className={"auth-container"}>
+                <form onSubmit={registerUserFormSubmit} className={"auth-form"}>
                     <div className={"mb-3"}>
                         <label htmlFor="name" className="form-label">Full Name</label>
                         <input

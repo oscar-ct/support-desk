@@ -62,45 +62,46 @@ const Login = () => {
                 </p>
             </section>
             <section>
-                <form onSubmit={loginUserFormSubmit
-                }>
-                    <div className={"mb-3"}>
-                        <label htmlFor="email" className="form-label">Email address</label>
-                        <input
-                            autoComplete={"email"}
-                            id={"email"}
-                            className={"form-control"}
-                            type={"email"}
-                            value={email}
-                            name={"email"}
-                            onChange={onChange}
-                            placeholder={"Enter your email"}
-                            required
-                        />
-                    </div>
-                    <div className={"mb-3"}>
-                        <label htmlFor="password" className="form-label">Password</label>
+                <div className={"auth-container"}>
+                    <form onSubmit={loginUserFormSubmit} className={"auth-form"}>
+                        <div className={"mb-3"}>
+                            <label htmlFor="email" className="form-label">Email address</label>
                             <input
-                                autoComplete={"password"}
-                            id={"password"}
-                            className={"form-control"}
-                            type={"password"}
-                            value={password}
-                            name={"password"}
-                            onChange={onChange}
-                            placeholder={"Enter your password"}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <button
-                            className={"btn btn-dark mt-4"}
-                            type={"submit"}
-                        >
-                            Login
-                        </button>
-                    </div>
-                </form>
+                                autoComplete={"email"}
+                                id={"email"}
+                                className={"form-control"}
+                                type={"email"}
+                                value={email}
+                                name={"email"}
+                                onChange={onChange}
+                                placeholder={"Enter your email"}
+                                required
+                            />
+                        </div>
+                        <div className={"mb-3"}>
+                            <label htmlFor="password" className="form-label">Password</label>
+                                <input
+                                    autoComplete={"password"}
+                                id={"password"}
+                                className={"form-control"}
+                                type={"password"}
+                                value={password}
+                                name={"password"}
+                                onChange={onChange}
+                                placeholder={"Enter your password"}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <button
+                                className={"btn btn-dark mt-4"}
+                                type={"submit"}
+                            >
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </section>
         </>
     );
