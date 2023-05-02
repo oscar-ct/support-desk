@@ -43,10 +43,10 @@ const Tickets = () => {
                     <table className="table table-hover">
                         <thead>
                         <tr>
-                            <th>Date</th>
+                            <th>Date Created</th>
                             <th>Product</th>
                             <th>Status</th>
-                            <th/>
+                            <th>Last Updated</th>
                         </tr>
                         </thead>
                         {tickets.map(function(ticket) {
