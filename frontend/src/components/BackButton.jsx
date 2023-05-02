@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const BackButton = ({url}) => {
     return (
-        <Link to={url} className={"btn btn-light px-4"}>
+        <Link to={url} className={"btn btn-outline-dark px-4"}>
             <FaArrowCircleLeft/> Back
         </Link>
     );
