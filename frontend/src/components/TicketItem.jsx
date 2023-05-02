@@ -43,13 +43,17 @@ const TicketItem = ({ ticket }) => {
                         {/*    View*/}
                         {/*</Link>*/}
 
-                        {/*{*/}
-                        {/*    ticket.status !== "closed" && (*/}
-                        {/*        <Link to={`/edit-ticket/${ticket._id}`} className={"px-3"}>*/}
-                        {/*            <FaEdit className={"fs-5"}/>*/}
-                        {/*        </Link>*/}
-                        {/*    )*/}
-                        {/*}*/}
+                        {
+                            ticket.createdAt !== ticket.updatedAt ? (
+                                <div className={"px-3"}>
+                                    {new Date(ticket.updatedAt).toLocaleString("en-US")}
+                                </div>
+                            ) : (
+                                <div>
+                                    <span className={"text-secondary"}>No updates</span>
+                                </div>
+                            )
+                        }
 
                     </div>
                 </td>
