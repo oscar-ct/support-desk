@@ -24,8 +24,7 @@ const customModalStyles = {
         maxWidth: "600px",
         position: 'absolute',
         margin: "auto",
-        top: '25%',
-        bottom: '42%',
+        maxHeight: "225px",
         border: '1px solid #ccc',
         background: '#fff',
         overflow: 'auto',
@@ -105,7 +104,7 @@ const Ticket = () => {
 
     return (
         <>
-            <div className={"d-flex mb-3"}>
+            <div className={"d-flex mb-5"}>
                 <BackButton url={"/tickets"}/>
             </div>
             <section>
@@ -149,29 +148,29 @@ const Ticket = () => {
                     }
 
                     <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customModalStyles} contentLabel={"Add Note"}>
-                        <div className={"pb-4 w-100 d-flex justify-content-between border-bottom"}>
-                            <div className={"fs-2"}>Add Note</div>
+                        <div className={"w-100 d-flex justify-content-between"}>
+                            <div className={"fw-bold text-secondary"}>Ticket ID: {ticket._id}</div>
                             <button className={"btn btn-close"} onClick={closeModal}/>
                         </div>
 
                         <form onSubmit={onNoteSubmitForm}>
-                            <div className={"mt-4 p-2"}>
+                            <div className={"mt-3 mx-3"}>
                                 <textarea
-                                    rows={5}
-                                    className={"form-control bg-light"}
+                                    rows={3}
+                                    className={"form-control"}
                                     name={"noteText"}
                                     id={"noteText"}
-                                    placeholder={"Type note here"}
+                                    placeholder={"Add Note"}
                                     onChange={(e) => setNoteText(e.target.value)}
                                 />
                             </div>
-                            <div className={"border-top d-flex justify-content-end mt-4"}>
-                                <div className={"mt-4"}>
+                            <div className={"d-flex justify-content-end mt-3"}>
+                                <div className={""}>
                                     <button onClick={closeModal} className={"btn btn-secondary"}>
                                         Close
                                     </button>
                                     <button className={"ms-2 btn btn-primary"}>
-                                        Submit
+                                        Submit Note
                                     </button>
                                 </div>
                             </div>
@@ -197,8 +196,8 @@ const Ticket = () => {
             <div className={"mt-5"}>
                 {
                     ticket.status !== "closed" && (
-                        <div className={"d-flex justify-content-between"}>
-                            <button className={"btn btn-secondary"} onClick={() => navigate("/edit-ticket/" + ticketId)}>
+                        <div className={"d-flex justify-content-end"}>
+                            <button className={"btn btn-primary me-2"} onClick={() => navigate("/edit-ticket/" + ticketId)}>
                                 Edit Ticket
                             </button>
                             <button onClick={closeTicket} className={"btn btn-danger"}>

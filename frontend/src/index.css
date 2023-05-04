@@ -31,6 +31,9 @@ a {
   width: 500px;
 }
 
+.bg-light-200 {
+  background-color: rgb(211, 211, 211);
+}
 
 /*HEADER COMPONENT*/
 .header {
