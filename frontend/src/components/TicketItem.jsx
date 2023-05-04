@@ -14,6 +14,14 @@ const ticketStatusColor = (status) => {
     }
 }
 
+const bgColor = (status) => {
+    if (status === "closed") {
+        return "bg-light-200"
+    } else {
+        return "bg-light"
+    }
+}
+
 
 const TicketItem = ({ ticket }) => {
 
@@ -22,15 +30,15 @@ const TicketItem = ({ ticket }) => {
 
     return (
 
-        <tbody style={{cursor: "pointer"}} className={"cursor bg-light"}>
-            <tr>
-                <td onClick={() => navigate("/ticket/" + ticket._id)} className={"py-4"}>
+        <tbody style={{cursor: "pointer"}} className={`cursor ${bgColor(ticket.status)}`}>
+            <tr onClick={() => navigate("/ticket/" + ticket._id)}>
+                <td className={"py-4"}>
                     {new Date(ticket.createdAt).toLocaleString("en-US")}
                 </td>
-                <td onClick={() => navigate("/ticket/" + ticket._id)} className={"py-4"}>
+                <td className={"py-4"}>
                     {ticket.product}
                 </td>
-                <td onClick={() => navigate("/ticket/" + ticket._id)} className={"py-4"}>
+                <td className={"py-4"}>
                     <div className="d-flex align-items-center justify-content-center">
                         <div className={`${ticketStatusColor(ticket.status)} rounded-pill text py-1 w-100`}>
                             {ticket.status}
