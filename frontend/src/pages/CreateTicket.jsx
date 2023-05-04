@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {createTicket, resetFunc} from "../features/tickets/ticketSlice";
 import {toast} from "react-toastify";
 import BackButton from "../components/BackButton";
+import Select from 'react-select';
+
 
 
 const CreateTicket = () => {
@@ -39,6 +41,18 @@ const CreateTicket = () => {
         dispatch(createTicket({
             product, description
         }));
+    };
+
+    const options = [
+        {value: "iPhone", label: "iPhone"},
+        {value: "iPad", label: "iPad"},
+        {value: "iMac", label: "iMac"},
+        {value: "Macbook Air", label: "Macbook Air"},
+        {value: "Macbook Pro", label: "Macbook Pro"},
+    ];
+
+    const handleChange = (selectedOption) => {
+        setProduct(selectedOption.value);
     };
 
     if (isLoading) {
@@ -81,39 +95,50 @@ const CreateTicket = () => {
                     {/*        disabled*/}
                     {/*    />*/}
                     {/*</div>*/}
+
+
+
+
                 <form onSubmit={submitTicketForm}>
                     <div className={"mb-3"}>
                         <label htmlFor="product" className="form-label">Product Type</label>
-                        <select
-                            autoComplete={"off"}
-                            id={"product"}
-                            className={"form-select"}
-                            value={product}
-                            name={"product"}
-                            onChange={(e) => {
-                                setProduct(e.target.value);
-                            }}
-                            required
-                        >
-                            <option value={""} disabled={true}>
-                                --Please select an option--
-                            </option>
-                            <option value={"iPhone"}>
-                                iPhone
-                            </option>
-                            <option value={"iPad"}>
-                                iPad
-                            </option>
-                            <option value={"iMac"}>
-                                iMac
-                            </option>
-                            <option value={"Macbook Air"}>
-                                Macbook Air
-                            </option>
-                            <option value={"Macbook Pro"}>
-                                Macbook Pro
-                            </option>
-                        </select>
+
+
+                        <div>
+                            <Select className={"text-start"} placeholder={" --Please select a product--"} options={options} onChange={handleChange}/>
+                        </div>
+
+
+                        {/*<select*/}
+                        {/*    autoComplete={"off"}*/}
+                        {/*    id={"product"}*/}
+                        {/*    className={"form-select"}*/}
+                        {/*    value={product}*/}
+                        {/*    name={"product"}*/}
+                        {/*    onChange={(e) => {*/}
+                        {/*        setProduct(e.target.value);*/}
+                        {/*    }}*/}
+                        {/*    required*/}
+                        {/*>*/}
+                        {/*    <option value={""} disabled={true}>*/}
+                        {/*        --Please select an option--*/}
+                        {/*    </option>*/}
+                        {/*    <option value={"iPhone"}>*/}
+                        {/*        iPhone*/}
+                        {/*    </option>*/}
+                        {/*    <option value={"iPad"}>*/}
+                        {/*        iPad*/}
+                        {/*    </option>*/}
+                        {/*    <option value={"iMac"}>*/}
+                        {/*        iMac*/}
+                        {/*    </option>*/}
+                        {/*    <option value={"Macbook Air"}>*/}
+                        {/*        Macbook Air*/}
+                        {/*    </option>*/}
+                        {/*    <option value={"Macbook Pro"}>*/}
+                        {/*        Macbook Pro*/}
+                        {/*    </option>*/}
+                        {/*</select>*/}
                     </div>
                     <div className={"mb-3"}>
                         <label htmlFor="description" className="form-label">Description of issue</label>

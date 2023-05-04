@@ -5,6 +5,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {updateUserTicket, getUserTicket, resetFunc} from "../features/tickets/ticketSlice";
 import {toast} from "react-toastify";
 import BackButton from "../components/BackButton";
+import Select from "react-select";
+
 
 
 const EditTicket = () => {
@@ -48,6 +50,17 @@ const EditTicket = () => {
         navigate("/tickets");
     };
 
+    const handleChange = (selectedOption) => {
+        setProduct(selectedOption.value);
+    };
+    const options = [
+        {value: "iPhone", label: "iPhone"},
+        {value: "iPad", label: "iPad"},
+        {value: "iMac", label: "iMac"},
+        {value: "Macbook Air", label: "Macbook Air"},
+        {value: "Macbook Pro", label: "Macbook Pro"},
+    ];
+
     if (isLoading) {
         return <h1>Loading...</h1>
     }
@@ -65,34 +78,9 @@ const EditTicket = () => {
                 <form onSubmit={submitEditTicketForm}>
                     <div className={"mb-3"}>
                         <label htmlFor="product" className="form-label">Product Type</label>
-                        <select
-                            autoComplete={"off"}
-                            id={"product"}
-                            className={"form-select"}
-                            value={product === undefined ? ticket.product : product}
-                            name={"product"}
-                            onChange={(e) => {
-                                setProduct(e.target.value);
-                            }}
-                            required
-                        >
-                            <option value={"iPhone"}>
-                                iPhone
-                            </option>
-                            <option value={"iPad"}>
-                                iPad
-                            </option>
-                            <option value={"iMac"}>
-                                iMac
-                            </option>
-                            <option value={"Macbook Air"}>
-                                Macbook Air
-                            </option>
-                            <option value={"Macbook Pro"}>
-                                Macbook Pro
-                            </option>
-                        </select>
+                        <Select className={"text-start"} placeholder={`${ticket.product}`} options={options} onChange={handleChange}/>
                     </div>
+
                     <div className={"mb-3"}>
                         <label htmlFor="description" className="form-label">Description of issue</label>
                         <textarea
@@ -101,7 +89,6 @@ const EditTicket = () => {
                             id={"description"}
                             className={"form-control"}
                             value={description === undefined ? ticket.description : description}
-                            placeholder={"Please describe the nature of your issue"}
                             name={"description"}
                             onChange={(e) => {
                                 setDescription(e.target.value);
